@@ -9,7 +9,8 @@ const UserContext = React.createContext();
 axios.defaults.withCredentials = true;
 
 export const UserContextProvider = ({ children }) => {
-  const serverUrl = "https://taskfyer.onrender.com";
+  const serverUrl = "http://localhost:8000"; // Change this to your local backend URL
+
 
   const router = useRouter();
 
@@ -25,6 +26,7 @@ export const UserContextProvider = ({ children }) => {
   // register user
   const registerUser = async (e) => {
     e.preventDefault();
+    console.log("Register form submitted"); // ✅ Add this
     if (
       !userState.email.includes("@") ||
       !userState.password ||

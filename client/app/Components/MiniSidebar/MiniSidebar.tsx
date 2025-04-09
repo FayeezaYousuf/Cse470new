@@ -14,7 +14,7 @@ function MiniSidebar() {
   const pathname = usePathname();
 
   const getStrokeColor = (link: string) => {
-    return pathname === link ? "#3aafae" : "#2E1FE0";  //change color
+    return pathname === link ? "#3aafae" : "#2E1FE0";  
   };
 
   const navItems = [

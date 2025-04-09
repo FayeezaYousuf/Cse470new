@@ -12,25 +12,44 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-// middleware
+// Middleware for CORS
+const allowedOrigins = [
+  process.env.CLIENT_URL, // Production URL (e.g., https://taskfyer.vercel.app)
+  "http://localhost:3000", // Development URL (localhost)
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+//new
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL, "http://localhost:3000"], // Allow both production and local origins
+    credentials: true,
+  })
+);
+//newend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// error handler middleware
+// Error handler middleware
 app.use(errorHandler);
 
-//routes
+// Routes
 const routeFiles = fs.readdirSync("./src/routes");
 
 routeFiles.forEach((file) => {
-  // use dynamic import
+  // Use dynamic import for routes
   import(`./src/routes/${file}`)
     .then((route) => {
       app.use("/api/v1", route.default);
@@ -48,9 +67,10 @@ const server = async () => {
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
-    console.log("Failed to strt server.....", error.message);
+    console.log("Failed to start server.....", error.message);
     process.exit(1);
   }
 };
 
 server();
+

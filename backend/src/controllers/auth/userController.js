@@ -69,7 +69,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     res.status(400).json({ message: "Invalid user data" });
   }
 });
-
+// const jwt = require('jsonwebtoken');
 // user login
 export const loginUser = asyncHandler(async (req, res) => {
   // get email and password from req.body

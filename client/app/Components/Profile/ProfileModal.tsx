@@ -7,18 +7,13 @@ import Image from "next/image";
 import React from "react";
 
 function ProfileModal() {
-  const ref = React.useRef(null);
 
   const { closeModal } = useTasks();
-  const { user, updateUser, handlerUserInput, userState, changePassword } =
-    useUserContext();
+  const { user, updateUser, handlerUserInput, userState, changePassword } = useUserContext();
 
-  useDetectOutside({
-    ref,
-    callback: () => {
-      closeModal();
-    },
-  });
+  // Use the hook, which returns a ref
+  const ref = useDetectOutside<HTMLDivElement>(closeModal);
+
 
   const { name, email, photo } = user;
 
@@ -52,19 +47,10 @@ function ProfileModal() {
               className="rounded-full"
             />
             <div className="absolute bottom-0 right-1 shadow-sm">
-              <span className="text-lg text-blue-400">{badge}</span>
               <span className="absolute z-20 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs text-white">
                 {check}
               </span>
             </div>
-          </div>
-          <div className="self-end flex items-center gap-2">
-            <button className="flex items-center gap-2 border-2 border-[#323232]/10 rounded-md py-1 px-3 text-xs font-medium text-[#323232]">
-              {github} Github
-            </button>
-            <button className="flex items-center gap-2 border-2 border-[#323232]/10 rounded-md py-1 px-3 text-xs font-medium text-[#323232]">
-              {check} Verified
-            </button>
           </div>
         </div>
         <div>
@@ -156,6 +142,8 @@ function ProfileModal() {
 
           <div className="flex justify-end gap-4 border-t-2 border-t-[#323232]/10">
             <button
+              type="button"
+              onClick={closeModal}
               className="mt-3 py-2 px-4 bg-transparent text-black text-sm font-medium rounded-md border-2 border-[#323232]/10
                 hover:bg-[#EB4E31] hover:border-transparent hover:text-white transition-all duration-300"
             >

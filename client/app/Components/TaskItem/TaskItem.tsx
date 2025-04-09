@@ -24,7 +24,7 @@ function TaskItem({ task }: TaskItemProps) {
     }
   };
 
-  const { getTask, openModalForEdit, deleteTask, modalMode } = useTasks();
+  const { getTask, openModalForEdit, deleteTask, modalMode,toggleComplete  } = useTasks();
 
   return (
     <motion.div
@@ -43,12 +43,11 @@ function TaskItem({ task }: TaskItemProps) {
         <div>
           <div className="flex items-center gap-3 text-gray-400 text-[1.2rem]">
             <button
-              className={`${
-                task.completed ? "text-yellow-400" : "text-gray-400"
-              }`}
-            >
-              {star}
-            </button>
+            className={`${task.completed ? "text-yellow-400" : "text-gray-400"}`}
+            onClick={() => toggleComplete(task._id)}
+          >
+            {star}
+          </button>
             <button
               className="text-[#00A1F1]"
               onClick={() => {

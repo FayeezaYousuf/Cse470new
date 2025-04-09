@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const TasksContext = createContext();
 
-const serverUrl = "https://taskfyer.onrender.com/api/v1";
+const serverUrl = "http://localhost:8000/api/v1"; 
 
 export const TasksProvider = ({ children }) => {
   const userId = useUserContext().user._id;
@@ -137,6 +137,36 @@ export const TasksProvider = ({ children }) => {
 
   console.log("Active tasks", activeTasks);
 
+  const toggleComplete = async (taskId) => {
+    setLoading(true);
+    try {
+      // Find the current task
+      const currentTask = tasks.find((tsk) => tsk._id === taskId);
+      if (!currentTask) return;
+  
+      // Toggle its completion status
+      const updatedTask = { ...currentTask, completed: !currentTask.completed };
+  
+      // Update on the server
+      const res = await axios.patch(`${serverUrl}/task/${taskId}`, {
+        completed: updatedTask.completed,
+      });
+  
+      // Update in local state
+      const updatedTasks = tasks.map((tsk) =>
+        tsk._id === taskId ? res.data : tsk
+      );
+  
+      setTasks(updatedTasks);
+      toast.success(`Marked as ${updatedTask.completed ? "completed" : "pending"}`);
+    } catch (error) {
+      console.log("Error toggling completion", error);
+      toast.error("Failed to toggle task status");
+    }
+    setLoading(false);
+  };
+  
+
   return (
     <TasksContext.Provider
       value={{
@@ -162,6 +192,7 @@ export const TasksProvider = ({ children }) => {
         activeTasks,
         completedTasks,
         profileModal,
+        toggleComplete,
       }}
     >
       {children}

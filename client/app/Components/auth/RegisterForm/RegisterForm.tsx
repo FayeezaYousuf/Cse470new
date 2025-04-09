@@ -10,7 +10,11 @@ function RegisterForm() {
   const togglePassword = () => setShowPassword(!showPassword);
 
   return (
-    <form className="relative m-[2rem] px-10 py-14 rounded-lg bg-white w-full max-w-[520px]">
+    // ✅ CHANGED: added onSubmit here instead of onClick in button
+    <form
+      onSubmit={registerUser}
+      className="relative m-[2rem] px-10 py-14 rounded-lg bg-white w-full max-w-[520px]"
+    >
       <div className="relative z-10">
         <h1 className="mb-2 text-center text-[1.35rem] font-medium">
           Register for an Account
@@ -24,6 +28,8 @@ function RegisterForm() {
             Login here
           </a>
         </p>
+
+        {/* Full Name */}
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-[#999]">
             Full Name
@@ -38,6 +44,8 @@ function RegisterForm() {
             placeholder="John Doe"
           />
         </div>
+
+        {/* Email */}
         <div className="mt-[1rem] flex flex-col">
           <label htmlFor="email" className="mb-1 text-[#999]">
             Email
@@ -52,6 +60,8 @@ function RegisterForm() {
             placeholder="johndoe@gmail.com"
           />
         </div>
+
+        {/* Password */}
         <div className="relative mt-[1rem] flex flex-col">
           <label htmlFor="password" className="mb-1 text-[#999]">
             Password
@@ -67,30 +77,31 @@ function RegisterForm() {
           />
           <button
             type="button"
+            onClick={togglePassword} // ✅ moved onClick here instead of inside <i>
             className="absolute p-1 right-4 top-[43%] text-[22px] text-[#999] opacity-45"
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? (
-              <i className="fas fa-eye-slash" onClick={togglePassword}></i>
-            ) : (
-              <i className="fas fa-eye" onClick={togglePassword}></i>
-            )}
+            <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
           </button>
         </div>
 
+        {/* Register Button */}
         <div className="flex">
+          {/* ✅ CHANGED: removed onClick, set type="submit" */}
           <button
             type="submit"
             disabled={!name || !email || !password}
-            onClick={registerUser}
             className="mt-[1.5rem] flex-1 px-4 py-3 font-bold bg-[#2ECC71] text-white rounded-md hover:bg-[#1abc9c] transition-colors"
           >
             Register Now
           </button>
         </div>
       </div>
+
       <img src="/flurry.png" alt="" />
     </form>
   );
 }
 
 export default RegisterForm;
+
