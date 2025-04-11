@@ -1,7 +1,6 @@
 "use client";
 import { useTasks } from "@/context/taskContext";
 import useRedirect from "@/hooks/useUserRedirect";
-
 import { Task } from "@/utils/types";
 import { filteredTasks } from "@/utils/utilities";
 import TaskItem from "../Components/TaskItem/TaskItem";
@@ -11,18 +10,20 @@ import { motion } from "framer-motion";
 import { container, item } from "@/utils/animations";
 
 export default function Home() {
-  useRedirect("/login");
+  const ready = useRedirect("/login");
 
   const { openModalForAdd, priority, completedTasks, setPriority } = useTasks();
 
-  const filtered = filteredTasks(completedTasks, priority);
-
   useEffect(() => {
     setPriority("all");
-  }, []);
+  }, [setPriority]);
+
+  const filtered = filteredTasks(completedTasks, priority);
+
+  if (!ready) return null;
 
   return (
-    <main className="m-6 h-full">
+    <main className="m-6 min-h-screen">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold">Completed Tasks</h1>
         <Filters />
@@ -49,3 +50,6 @@ export default function Home() {
     </main>
   );
 }
+
+
+

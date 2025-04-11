@@ -23,11 +23,11 @@ export const description = "A radial chart with stacked sections";
 const chartConfig = {
   desktop: {
     label: "Completed",
-    color: "#8BCE89",
+    color: "#fad2e1",
   },
   mobile: {
     label: "Pending",
-    color: "#EB4E31",
+    color: "#a53860",
   },
 } satisfies ChartConfig;
 

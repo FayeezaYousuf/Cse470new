@@ -10,17 +10,18 @@ import { motion } from "framer-motion";
 import { container, item } from "@/utils/animations";
 
 export default function Home() {
-  useRedirect("/login");
+  const ready = useRedirect("/login"); // wait until auth check is done
 
   const { tasks, openModalForAdd, priority, setPriority } = useTasks();
 
   const overdue = overdueTasks(tasks);
-
   const filtered = filteredTasks(overdue, priority);
 
   useEffect(() => {
     setPriority("all");
-  }, []);
+  }, [setPriority]);
+
+  if (!ready) return null; // don't render page until user check is done
 
   return (
     <main className="m-6 h-full">
@@ -50,3 +51,4 @@ export default function Home() {
     </main>
   );
 }
+

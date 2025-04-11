@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { container, item } from "@/utils/animations";
 
 export default function Home() {
-  useRedirect("/login");
+  const ready = useRedirect("/login"); // wait for auth check
 
   const { tasks, openModalForAdd, priority, setPriority } = useTasks();
 
@@ -20,7 +20,9 @@ export default function Home() {
 
   useEffect(() => {
     setPriority("all");
-  }, []);
+  }, [setPriority]);
+
+  if (!ready) return null; // prevent premature render
 
   return (
     <main className="m-6 h-full">
@@ -50,3 +52,4 @@ export default function Home() {
     </main>
   );
 }
+

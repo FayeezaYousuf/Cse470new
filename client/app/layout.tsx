@@ -8,7 +8,7 @@ import Header from "./Components/Header/Header";
 import MainContentLayout from "@/providers/MainContentLayout";
 import SidebarProvider from "@/providers/SidebarProvider";
 import MainLayout from "@/providers/MainLayout";
-// import GTMInitialiser from "@/providers/GTMInitialiser";
+import GTMInitialiser from "@/providers/GTMInitialiser";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
+      <head>
         <GTMInitialiser />
         <link
           rel="stylesheet"
@@ -35,13 +35,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-      </head> */}
+      </head>
       <body className={inter.className}>
         <UserProvider>
           <Toaster position="top-center" />
 
           <div className="h-full flex overflow-hidden">
-            <MiniSidebar />
+            <MiniSidebar /> 
             <div className="flex-1 flex flex-col">
               <Header />
               <MainContentLayout>

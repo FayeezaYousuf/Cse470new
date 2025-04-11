@@ -1,5 +1,5 @@
 import { useTasks } from "@/context/taskContext";
-import { edit, star, trash } from "@/utils/Icons";
+import { edit, rightSign, trash } from "@/utils/Icons";
 import { Task } from "@/utils/types";
 import { formatTime } from "@/utils/utilities";
 import React from "react";
@@ -46,7 +46,7 @@ function TaskItem({ task }: TaskItemProps) {
             className={`${task.completed ? "text-yellow-400" : "text-gray-400"}`}
             onClick={() => toggleComplete(task._id)}
           >
-            {star}
+            {rightSign}
           </button>
             <button
               className="text-[#00A1F1]"

@@ -1,19 +1,25 @@
-"use cleint";
+"use client";
 import { useUserContext } from "@/context/userContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useRedirect = (redirect: string) => {
   const { user, loading } = useUserContext();
   const router = useRouter();
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!user || !user.email) {
-      router.push(redirect);
+    if (!loading) {
+      if (!user || !user.email) {
+        router.push(redirect);
+      } else {
+        setReady(true);
+      }
     }
+  }, [user, loading, redirect, router]);
 
-    // watch for changes to user, redirect, router
-  }, [user, redirect, router]);
+  return ready;
 };
 
 export default useRedirect;
+

@@ -10,15 +10,16 @@ import { motion } from "framer-motion";
 import { container, item } from "@/utils/animations";
 
 export default function Home() {
-  useRedirect("/login");
+  const ready = useRedirect("/login"); // wait for auth status
 
   const { tasks, openModalForAdd, priority, setPriority } = useTasks();
-
   const filtered = filteredTasks(tasks, priority);
 
   useEffect(() => {
     setPriority("all");
-  }, []);
+  }, [setPriority]);
+
+  if (!ready) return null; // block rendering until auth is checked
 
   return (
     <main className="m-6 h-full">

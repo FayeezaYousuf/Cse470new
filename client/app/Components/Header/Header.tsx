@@ -11,19 +11,17 @@ function Header() {
   const { openModalForAdd, activeTasks } = useTasks();
 
   const router = useRouter();
-
   const { name } = user;
-
   const userId = user._id;
 
   return (
-    <header className="px-6 my-4 w-full flex items-center justify-between bg-[#f9f9f9]">
+    <header className="px-6 py-4 w-full flex items-center justify-between bg-[#c3acce]">
       <div>
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">
             👋
           </span>
-          {userId ? `Welcome, ${name}!` : "Welcome to Taskfyer"} 
+          {userId ? `Welcome, ${name}!` : "Welcome to Taskyfy"}
         </h1>
         <p className="text-sm">
           {userId ? (
@@ -39,10 +37,11 @@ function Header() {
           )}
         </p>
       </div>
-      <div className="h-[50px] flex items-center gap-[10.4rem]">
+
+      <div className="h-[50px] flex items-center gap-6">
         <button
-          className="px-8 py-3 bg-[#3aafae] text-white rounded-[50px]
-          hover:bg-[#00A1F1] hover:text-white transition-all duration-200 ease-in-out"
+          className="px-8 py-3 bg-[#f5d3c5] text-black font-bold rounded-[50px]
+          hover:bg-[#a26769] hover:text-white transition-all duration-200 ease-in-out"
           onClick={() => {
             if (userId) {
               openModalForAdd();
@@ -54,34 +53,23 @@ function Header() {
           {userId ? "Add a new Task" : "Login / Register"}
         </button>
 
+        
+        <button
+          className="px-8 py-3 bg-[#f5d3c5] text-black font-bold rounded-[50px]
+          hover:bg-[#a26769] hover:text-white transition-all duration-200 ease-in-out"
+          onClick={() => {
+            if (userId) {
+              openModalForAdd();
+            } else {
+              router.push("/login");
+            }
+          }}
+        >
+          {userId ? "Course" : "Login / Register"}
+        </button>
+
         <div className="flex gap-4 items-center">
-          <Link
-            href="" //edit
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#2E1FE0]"
-          >
-            {github}
-          </Link>
-          <Link
-            href="" //edit
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#2E1FE0]"
-          >
-            {moon}
-          </Link>
-          <Link
-            href="" //edit
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#2E1FE0]"
-          >
-            {profile}
-          </Link>
+         
         </div>
       </div>
     </header>
@@ -89,3 +77,4 @@ function Header() {
 }
 
 export default Header;
+

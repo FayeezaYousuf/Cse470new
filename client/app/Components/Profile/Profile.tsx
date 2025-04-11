@@ -16,7 +16,7 @@ function Profile() {
       >
         <div>
           <Image
-            src={user?.photo}
+            src={"/user1.jpg"}
             alt="avatar"
             width={70}
             height={70}
@@ -33,7 +33,7 @@ function Profile() {
 
       <div className="mt-6 flex flex-col gap-8">
         <div className="grid grid-cols-2 gap-4">
-          <div className="text-gray-400">
+          <div className="text-black-400">
             <p>Total Tasks:</p>
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-purple-500 rounded-[5px]"></span>
@@ -42,7 +42,7 @@ function Profile() {
               </span>
             </p>
           </div>
-          <div className="text-gray-400">
+          <div className="text-black-400">
             <p>In Progress:</p>
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-[#3AAFAE] rounded-[5px]"></span>
@@ -51,7 +51,7 @@ function Profile() {
               </span>
             </p>
           </div>
-          <div className="text-gray-400">
+          <div className="text-black-400">
             <p>Open Tasks:</p>
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-orange-400 rounded-[5px]"></span>
@@ -60,7 +60,7 @@ function Profile() {
               </span>
             </p>
           </div>
-          <div className="text-gray-400">
+          <div className="text-black-400">
             <p>Completed:</p>
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-green-400 rounded-[5px]"></span>
