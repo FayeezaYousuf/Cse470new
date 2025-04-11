@@ -140,31 +140,35 @@ export const TasksProvider = ({ children }) => {
   const toggleComplete = async (taskId) => {
     setLoading(true);
     try {
-      // Find the current task
       const currentTask = tasks.find((tsk) => tsk._id === taskId);
       if (!currentTask) return;
   
-      // Toggle its completion status
-      const updatedTask = { ...currentTask, completed: !currentTask.completed };
+      const newCompletedStatus = !currentTask.completed;
   
       // Update on the server
       const res = await axios.patch(`${serverUrl}/task/${taskId}`, {
-        completed: updatedTask.completed,
+        completed: newCompletedStatus,
       });
   
-      // Update in local state
-      const updatedTasks = tasks.map((tsk) =>
-        tsk._id === taskId ? res.data : tsk
+      const updatedTask = { ...currentTask, completed: newCompletedStatus };
+  
+      // Update local state directly using updated status
+      setTasks((prevTasks) =>
+        prevTasks.map((tsk) =>
+          tsk._id === taskId ? { ...tsk, completed: newCompletedStatus } : tsk
+        )
       );
   
-      setTasks(updatedTasks);
-      toast.success(`Marked as ${updatedTask.completed ? "completed" : "pending"}`);
+      toast.success(
+        `Marked as ${newCompletedStatus ? "completed" : "pending"}`
+      );
     } catch (error) {
-      console.log("Error toggling completion", error);
+      console.error("Error toggling task status", error);
       toast.error("Failed to toggle task status");
     }
     setLoading(false);
   };
+  
   
 
   return (
